@@ -17,7 +17,7 @@ CORS(app)
 
 @app.route('/', methods = ['GET'])
 def home_page():
-    data_set = {'Page': 'Home', 'Message': "Let's get started and send me your image", 'Timestamp': time.time()}
+    data_set = {'Page': 'Home', 'Message': "Let's get started and send me your image"}
     json_dump = json.dumps(data_set)
     return json_dump
   
