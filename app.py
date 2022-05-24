@@ -9,7 +9,7 @@ from flask_cors import CORS
 
 
 filename = 'chest_model_balanced.h5'
-model = keras.models.load_model('filename')
+model = keras.models.load_model(filename)
 
 
 app = Flask(__name__)
