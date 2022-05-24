@@ -20,7 +20,7 @@ def upload_file():
    if request.method == 'POST':
       f = request.files['file']
       #f.save(secure_filename(f.filename))
-      return 'file uploaded successfully'
+      return f
 		
 #if __name__ == '__main__':
  #  app.run(debug = True)
@@ -29,7 +29,7 @@ def upload_file():
 filename = 'chest_model_balanced.h5'
 model = keras.models.load_model(filename)
 
-y=model.predict(f)
+y=model.predict(upload_file())
 ans=np.argmax(y,axis=1)
 print(ans)
 if (ans==0):
