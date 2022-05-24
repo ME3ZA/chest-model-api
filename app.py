@@ -8,7 +8,7 @@ from tensorflow import keras
 from flask_cors import CORS
 
 
-filename = 'Final_xgboost_model.joblib'
+filename = 'chest_model_balanced.h5'
 model = keras.models.load_model('filename')
 
 
