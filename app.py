@@ -15,30 +15,32 @@ app = Flask(__name__)
 def upload_html():
    return render_template('upload.html')
 	
+
+
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
-   if request.method == 'POST':
-      f = request.files['file']
-      f.save(secure_filename(f.filename))
-      return 'file uploded succefully'		
+	filename = 'chest_model_balanced.h5'
+	model = keras.models.load_model(filename)   
+	if request.method == 'POST':
+      		f = request.files['file']
+      		f.save(secure_filename(f.filename))
+ 		y=model.predict(upload_file().f)
+		ans=np.argmax(y,axis=1)
+		print(ans)
+		if (ans==0):
+    			print("covid")
+		elif (ans==1):
+    			print("healthy")
+		elif (ans==2):
+    			print("Lung Tumor")
+		else :
+    			print("Pneumonia")
+
+
+
 #if __name__ == '__main__':
  #  app.run(debug = True)
 
-
-filename = 'chest_model_balanced.h5'
-model = keras.models.load_model(filename)
-
-y=model.predict(upload_file().f)
-ans=np.argmax(y,axis=1)
-print(ans)
-if (ans==0):
-    print("covid")
-elif (ans==1):
-    print("healthy")
-elif (ans==2):
-    print("Lung Tumor")
-else :
-    print("Pneumonia")
 
 
 #@app.route('/', methods = ['GET'])
