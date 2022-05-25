@@ -20,11 +20,11 @@ def upload_html():
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
     filename = 'chest_model_balanced.h5'
-	model = keras.models.load_model(filename)   
-	if request.method == 'POST':
+    model = keras.models.load_model(filename)   
+    if request.method == 'POST':
     	f = request.files['file']
     	f.save(secure_filename(f.filename))
- 		test_image = image.load_img(f, target_size = (64, 64))
+        test_image = image.load_img(f, target_size = (64, 64))
     	test_image = image.img_to_array(test_image)
     	test_image = np.expand_dims(test_image, axis = 0)
     	result = model.predict(test_image)
