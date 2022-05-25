@@ -24,7 +24,7 @@ def upload_file():
 	if request.method == 'POST':
       		f = request.files['file']
       		f.save(secure_filename(f.filename))
- 		y=model.predict(upload_file().f)
+ 		y=model.predict(f)
 		ans=np.argmax(y,axis=1)
 		print(ans)
 		if (ans==0):
