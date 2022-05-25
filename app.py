@@ -8,7 +8,7 @@ from flask_cors import CORS
 
 from tensorflow.keras.preprocessing import image
 from flask import Flask, render_template, request
-#from werkzeug import secure_filename
+from werkzeug import secure_filename
 app = Flask(__name__)
 
 @app.route('/upload')
@@ -19,9 +19,8 @@ def upload_html():
 def upload_file():
    if request.method == 'POST':
       f = request.files['file']
-      #f.save(secure_filename(f.filename))
-      return f
-		
+      f.save(secure_filename(f.filename))
+      return 'file uploded succefully'		
 #if __name__ == '__main__':
  #  app.run(debug = True)
 
@@ -29,7 +28,7 @@ def upload_file():
 filename = 'chest_model_balanced.h5'
 model = keras.models.load_model(filename)
 
-y=model.predict(upload_file())
+y=model.predict(upload_file().f)
 ans=np.argmax(y,axis=1)
 print(ans)
 if (ans==0):
