@@ -1,25 +1,26 @@
-import numpy as np
-from flask import Flask, request, jsonify, render_template
-import pickle
+from flask import Flask, render_template, request
+from keras.models import load_model
+from keras.preprocessing import image
 import json
 import os
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from flask_cors import CORS
 
-# Create flask app
-flask_app = Flask(__name__)
-model = pickle.load(open("model.pkl", "rb"))
+app = Flask(__name__)
+CORS(app)
 
-@flask_app.route("/")
+filename = 'chest_model_balanced.h5'
+model = keras.models.load_model(filename)
+
+# routes
+@app.route('/', methods = ['GET'])
 def home_page():
     data_set = {'Page': 'Home', 'Message': "Let's get started and send me your image"}
     json_dump = json.dumps(data_set)
     return json_dump
 
-#@flask_app.route("/predict", methods = ["POST"])
-#def predict():
-    #float_features = [float(x) for x in request.form.values()]
-    #features = [np.array(float_features)]
-    #prediction = model.predict(features)
-    #return render_template("index.html", prediction_text = "The flower species is {}".format(prediction))
-
-if __name__ == "__main__":
-    flask_app.run(debug=True)
+if __name__=='__main__':
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
