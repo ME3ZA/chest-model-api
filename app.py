@@ -11,8 +11,8 @@ from flask_cors import CORS
 app = Flask(__name__)
 CORS(app)
 
-filename = 'chest_model_balanced.h5'
-model = keras.models.load_model(filename)
+filename1 = 'chest_model_balanced.h5'
+model = keras.models.load_model(filename1)
 
 # routes
 @app.route("/", methods=['GET', 'POST'])
