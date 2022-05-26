@@ -1,48 +1,26 @@
-from flask import Flask, render_template, request
-from keras.preprocessing.image import image
-from keras.preprocessing.image import load_model
-from keras.preprocessing.image import img_to_array
-from keras.applications.vgg import preprocess_input
-from keras.applications.vgg decode_predictions
-from keras.applications.vgg VGG16
+from flask import *
+import json
+import os
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+
+from flask_cors import CORS
+
+
+filename = 'chest_model_balanced.h5'
+model = keras.models.load_model(filename)
+
 
 app = Flask(__name__)
+CORS(app)
 
-dic = {0 : 'Cat', 1 : 'Dog'}
-
-model = VGG16()
-
-model.make_predict_function()
-
-def predict_label(img_path):
-	i = image.load_img(img_path, target_size=(100,100))
-	i = image.img_to_array(i)/255.0
-	i = i.reshape(1, 100,100,3)
-	p = model.predict_classes(i)
-	return dic[p[0]]
-
-
-# routes
-@app.route("/", methods=['GET', 'POST'])
-def main():
-	return render_template("index.html")
-
-@app.route("/about")
-def about_page():
-	return "Please subscribe  Artificial Intelligence Hub..!!!"
-
-@app.route("/submit", methods = ['GET', 'POST'])
-def get_output():
-	if request.method == 'POST':
-		img = request.files['my_image']
-
-		img_path = "static/" + img.filename	
-		img.save(img_path)
-
-		p = predict_label(img_path)
-
-	return render_template("index.html", prediction = p, img_path = img_path)
-
-
+@app.route('/', methods = ['GET'])
+def home_page():
+    data_set = {'Page': 'Home', 'Message': "Let's get started and send me your image"}
+    json_dump = json.dumps(data_set)
+    return json_dump
+  
 if __name__=='__main__':
-    app.run = (port=3000, debug=True)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port, debug=True)
