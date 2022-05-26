@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import *
 from keras.models import load_model
 from keras.preprocessing import image
 import json
