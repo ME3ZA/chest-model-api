@@ -8,6 +8,15 @@ import tensorflow as tf
 from tensorflow import keras
 from flask_cors import CORS
 
+dic = {0 : 'Covid', 1 : 'Healthy', 2 : 'Lung Tumor', 3 : 'Common Pneumonia'}
+
+def predict_label(img_path):
+	i = image.load_img(img_path, target_size=(100,100))
+	i = image.img_to_array(i)/255.0
+	i = i.reshape(1, 100,100,3)
+	p = model.predict_classes(i)
+	return dic[p[0]]
+
 app = Flask(__name__)
 CORS(app)
 
