@@ -15,11 +15,9 @@ filename = 'chest_model_balanced.h5'
 model = keras.models.load_model(filename)
 
 # routes
-@app.route('/', methods = ['GET'])
-def home_page():
-    data_set = {'Page': 'Home', 'Message': "Let's get started and send me your image"}
-    json_dump = json.dumps(data_set)
-    return json_dump
+@app.route("/", methods=['GET', 'POST'])
+def main():
+	return render_template("index.html")
 
 if __name__=='__main__':
     port = int(os.environ.get('PORT', 5000))
