@@ -19,6 +19,10 @@ model = keras.models.load_model(filename)
 def main():
 	return render_template("index.html")
 
+@app.route("/about")
+def about_page():
+	return "This Project Was Designed By The Students of Faculty of Electronic Engineering - Egypt"
+
 if __name__=='__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
