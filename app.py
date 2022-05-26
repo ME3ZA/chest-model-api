@@ -32,6 +32,18 @@ def main():
 def about_page():
 	return "This Project Was Designed By The Students of Faculty of Electronic Engineering - Egypt"
 
+@app.route("/submit", methods = ['GET', 'POST'])
+def get_output():
+	if request.method == 'POST':
+		img = request.files['my_image']
+
+		img_path = "static/" + img.filename	
+		img.save(img_path)
+
+		p = predict_label(img_path)
+
+	return render_template("index.html", prediction = p, img_path = img_path)
+
 if __name__=='__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port, debug=True)
