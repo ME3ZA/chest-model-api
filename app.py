@@ -1,12 +1,16 @@
 from flask import Flask, render_template, request
-from keras.models import load_model
-from keras.preprocessing import image
+from keras.preprocessing.image import image
+from keras.preprocessing.image import load_model
+from keras.preprocessing.image import img_to_array
+from keras.applications.vgg import preprocess_input
+from keras.applications.vgg decode_predictions
+from keras.applications.vgg VGG16
 
 app = Flask(__name__)
 
 dic = {0 : 'Cat', 1 : 'Dog'}
 
-model = load_model(r'C:\Users\user\Desktop\Graduation\chest_model_balanced.h5')
+model = VGG16()
 
 model.make_predict_function()
 
@@ -41,5 +45,4 @@ def get_output():
 
 
 if __name__=='__main__':
-    port = int(os.environ.get('PORT', 5000))
-    app.run(host='0.0.0.0', port=port, debug=True)
+    app.run = (port=3000, debug=True)
