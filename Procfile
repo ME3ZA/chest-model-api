@@ -1,1 +1,1 @@
-web: node ./app.js
+web: gunicorn -b :$PORT app:app
