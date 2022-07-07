@@ -1,21 +1,14 @@
-#from flask import *
-from flask import Flask, render_template, request
+from flask import *
 from keras.models import load_model
 from keras.preprocessing import image
-#import json
-#import os
-#import numpy as np
-#import tensorflow as tf
-#from tensorflow import keras
-#from flask_cors import CORS
-
-app = Flask(__name__)
+import json
+import os
+import numpy as np
+import tensorflow as tf
+from tensorflow import keras
+from flask_cors import CORS
 
 dic = {0 : 'Covid', 1 : 'Healthy', 2 : 'Lung Tumor', 3 : 'Common Pneumonia'}
-
-filename1 = 'chest_model_balanced.h5'
-model = keras.models.load_model(filename1)
-model.make_predict_function()
 
 def predict_label(img_path):
 	i = image.load_img(img_path, target_size=(64,64))
@@ -24,9 +17,11 @@ def predict_label(img_path):
 	p = model.predict_classes(i)
 	return dic[p[0]]
 
-#app = Flask(__name__)
-#CORS(app)
+app = Flask(__name__)
+CORS(app)
 
+filename1 = 'chest_model_balanced.h5'
+model = keras.models.load_model(filename1)
 
 # routes
 @app.route("/", methods=['GET', 'POST'])
