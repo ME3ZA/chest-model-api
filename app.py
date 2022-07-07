@@ -22,6 +22,7 @@ CORS(app)
 
 filename1 = 'chest_model_balanced.h5'
 model = keras.models.load_model(filename1)
+model.make_predict_function()
 
 # routes
 @app.route("/", methods=['GET', 'POST'])
